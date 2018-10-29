@@ -1,1 +1,1 @@
-Here is a text file that we will use to simulate a merge conflict through github.
+Here is a text file that we will use to simulate a merge conflict through Grace Shopper.
