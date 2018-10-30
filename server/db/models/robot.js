@@ -31,6 +31,13 @@ const Robot = db.define('robot', {
   description: {
     type: Sequelize.TEXT,
     allowNull: false
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue: 'https://static.thenounproject.com/png/584365-200.png',
+    validate: {
+      isUrl: true
+    }
   }
 })
 
