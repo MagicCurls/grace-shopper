@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Robot} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -13,6 +13,46 @@ async function seed() {
   ])
 
   console.log(`seeded ${users.length} users`)
+  
+  const robots = await Promise.all([
+    Robot.create({
+      name: 'Roomba 690',
+      price: 297.00,
+      brand: 'iRobot',
+      customerReviews: 4,
+      description: 'Connect to clean from anywhere with the Roomba 690 robot vacuum. The 3-Stage Cleaning System is specially engineered to loosen, lift, and suction everything from small particles to large debris from carpets and hard floors. Dirt Detect sensors alert the Roomba robot vacuum to clean more thoroughly on concentrated areas of dirt. Just press clean or schedule Roomba on the go with the iRobot Home App.'
+    }),
+    Robot.create({
+      name: 'Roomba 42',
+      price: 100.23,
+      brand: 'SharkNinja',
+      customerReviews: 5,
+      description: 'Actually 10x better than the Roomba 690'
+    }),
+    Robot.create({
+      name: 'C3P0',
+      price: 4000.65,
+      brand: 'eufy',
+      customerReviews: 0,
+      description: 'Friendly robit'
+    }),
+    Robot.create({
+      name: 'Self-Hating Robot',
+      price: 10.90,
+      brand: 'ECOVACS',
+      customerReviews: 1,
+      description: 'Sad robit'
+    }),
+    Robot.create({
+      name: 'ES-Linter',
+      price: 50.33,
+      brand: 'ILIFE',
+      customerReviews: 0,
+      description: 'Do not listen to it'
+    })
+  ])
+
+  console.log(`seeded ${robots.length} robots`)
   console.log(`seeded successfully`)
 }
 
