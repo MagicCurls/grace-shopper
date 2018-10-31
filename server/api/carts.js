@@ -1,12 +1,12 @@
 const router = require('express').Router()
-const {CartEntry, Robot} = require('../db/models')
+const {CartEntry, Robot, User} = require('../db/models')
 const Op = require('sequelize').Op
 module.exports = router
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const {userId} = req.params
-    const entries = await CartEntry.findAll({where: {userId}})
+    const {userId} = req.params;
+    const entries = await CartEntry.findAll({where: {userId}});
     const robotIds = entries.map(entry => entry.robotId);
     const robots = await Robot.findAll({
       where: { id: {[Op.in]: robotIds} }
@@ -17,9 +17,18 @@ router.get('/:userId', async (req, res, next) => {
       return entry;
     })
     res.json(data);
+    // User.findById(userId).then(user => user.getRobots()).then(data => res.json(data))
   } catch (err) {
-    next(err)
+    next(err);
   }
 })
 
-router.post('/')
+router.post('/', async (req, res, next) => {
+  try {
+    const {userId,robotId,quantity} = req.body;
+    CartEntry.create({userId, robotId, quantity}).then(res.sendStatus(201));
+  }
+  catch (err) {
+    next(err);
+  }
+})
