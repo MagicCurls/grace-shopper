@@ -3,20 +3,25 @@ import ProductPreview from './ProductPreview'
 import AddToCart from './AddToCart'
 import UpdateRemove from './UpdateRemove'
 
-const CampusList = props => {
+const ListComponent = props => {
   return (
     <div>
       {props.products.map(product => (
         <div key={product.id}>
           <ProductPreview {...product} />
-          {!props.addToCart ? (
+          {!!props.addToCart ? (
+            <AddToCart
+              productId={product.id}
+              addToCart={props.addToCart}
+              userId={props.user.id}
+            />
+          ) : (
             <UpdateRemove
-              {...product}
+              productId={product.id}
+              userId={props.user.id}
               removeFromCart={props.removeFromCart}
               updateCart={props.updateCart}
             />
-          ) : (
-            <AddToCart {...product} addToCart={props.addToCart} />
           )}
         </div>
       ))}
@@ -24,4 +29,4 @@ const CampusList = props => {
   )
 }
 
-export default CampusList
+export default ListComponent

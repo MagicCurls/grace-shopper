@@ -6,14 +6,16 @@ import ListComponent from './ListComponent'
 
 const mapStateToProps = state => {
   return {
-    products: state.products.products
+    products: state.products.products,
+    user: state.user.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
-    addToCart: productId => dispatch(addProductToCart(productId))
+    addToCart: (userId, productId, quantity) =>
+      dispatch(addProductToCart(userId, productId, quantity))
   }
 }
 
@@ -23,12 +25,12 @@ class FullProductList extends Component {
   }
 
   render() {
-    const {products, addToCart} = this.props
+    const {products, user, addToCart} = this.props
 
     return (
       <div>
         <h1>Products:</h1>
-        <ListComponent products={products} addToCart={addToCart} />
+        <ListComponent {...products} {...user} addToCart={addToCart} />
       </div>
     )
   }
