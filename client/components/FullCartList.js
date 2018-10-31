@@ -2,11 +2,12 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchRobots, removeRobotFromCart, updateCartList} from '../store/cart'
 import ListComponent from './ListComponent'
+import {me} from '../store/user'
 
 const mapStateToProps = state => {
   return {
     robots: state.cart.robots,
-    user: state.user.user
+    user: state.user
   }
 }
 
@@ -16,13 +17,15 @@ const mapDispatchToProps = dispatch => {
     removeFromCart: (userId, robotId) =>
       dispatch(removeRobotFromCart(userId, robotId)),
     updateCart: (userId, robotId, quantityUpdate) =>
-      dispatch(updateCartList(userId, robotId, quantityUpdate))
+      dispatch(updateCartList(userId, robotId, quantityUpdate)),
+    getUser: () => dispatch(me())
   }
 }
 
-class CartRobotList extends Component {
+class FullCartList extends Component {
   componentDidMount() {
     this.props.fetchRobots()
+    this.props.getUser()
   }
 
   render() {
@@ -42,8 +45,8 @@ class CartRobotList extends Component {
   }
 }
 
-const ConnectedCartRobotList = connect(mapStateToProps, mapDispatchToProps)(
-  CartRobotList
+const ConnectedFullCartList = connect(mapStateToProps, mapDispatchToProps)(
+  FullCartList
 )
 
-export default ConnectedCartRobotList
+export default ConnectedFullCartList
