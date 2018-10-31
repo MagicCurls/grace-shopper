@@ -8,8 +8,9 @@ const CartEntry = require('./cartEntry')
  *    BlogPost.belongsTo(User)
  */
 
-User.belongsToMany(Robot, { through: CartEntry });
-Robot.belongsToMany(User, { through: CartEntry });
+User.belongsToMany(Robot, { through: 'cartEntry' });
+Robot.belongsToMany(User, { through: 'cartEntry' });
+
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -19,5 +20,6 @@ Robot.belongsToMany(User, { through: CartEntry });
  */
 module.exports = {
   User,
-  Robot
+  Robot,
+  CartEntry
 }
