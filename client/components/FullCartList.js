@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchRobots, removeRobotFromCart, updateCartList} from '../store/cart'
+import {fetchCartEntries, removeEntryFunc, updateCartList} from '../store/cart'
 import ListComponent from './ListComponent'
 import {me} from '../store/user'
 
@@ -13,9 +13,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchRobots: () => dispatch(fetchRobots()),
+    getRobots: userId => dispatch(fetchCartEntries(userId)),
     removeFromCart: (userId, robotId) =>
-      dispatch(removeRobotFromCart(userId, robotId)),
+      dispatch(removeEntryFunc(userId, robotId)),
     updateCart: (userId, robotId, quantityUpdate) =>
       dispatch(updateCartList(userId, robotId, quantityUpdate)),
     getUser: () => dispatch(me())
@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch => {
 
 class FullCartList extends Component {
   componentDidMount() {
-    this.props.fetchRobots()
     this.props.getUser()
+    this.props.getRobots(this.props.user.id)
   }
 
   render() {
