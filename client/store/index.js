@@ -3,14 +3,14 @@ import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
-import entry from './entryList'
-import singleEntry from './singleEntry'
+import robots from './robots'
+import singleRobot from './singleRobot'
 import cart from './cart'
 
 const reducer = combineReducers({
   user,
-  entry,
-  singleEntry,
+  robots,
+  singleRobot,
   cart
 })
 
@@ -21,8 +21,8 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
-export * from './entryList'
-export * from './singleEntry'
+export * from './robots'
+export * from './singleRobot'
 export * from './cart'
 
 
