@@ -25,8 +25,18 @@ router.get('/:userId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const {userId,robotId,quantity} = req.body;
+    const {userId, robotId, quantity} = req.body;
     CartEntry.create({userId, robotId, quantity}).then(res.sendStatus(201));
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    const {userId, robotId, quantity} = req.body;
+    CartEntry.findAll({where: {userId, robotId}}).then(entry => entry[0].update({quantity})).then(res.sendStatus(201));
   }
   catch (err) {
     next(err);
