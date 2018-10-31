@@ -21,7 +21,7 @@ class AddToCart extends Component {
     event.preventDefault()
     this.props.addToCart(
       this.props.userId,
-      this.props.productId,
+      this.props.robotId,
       this.state.quantity
     )
 

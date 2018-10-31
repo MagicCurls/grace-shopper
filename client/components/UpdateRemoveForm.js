@@ -3,7 +3,7 @@ import React from 'react'
 const UpdateRemoveForm = props => {
   const {
     userId,
-    productId,
+    robotId,
     quantity,
     handleSubmit,
     handleChange,
@@ -26,7 +26,7 @@ const UpdateRemoveForm = props => {
           Update Cart
         </button>
       </form>
-      <button type="button" onClick={() => removeFromCart(userId, productId)}>
+      <button type="button" onClick={() => removeFromCart(userId, robotId)}>
         Remove From Cart
       </button>
     </div>

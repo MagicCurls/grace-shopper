@@ -1,42 +1,38 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {
-  fetchProducts,
-  removeProductFromCart,
-  updateCartList
-} from '../store/cart'
+import {fetchRobots, removeRobotFromCart, updateCartList} from '../store/cart'
 import ListComponent from './ListComponent'
 
 const mapStateToProps = state => {
   return {
-    products: state.cart.products,
+    robots: state.cart.robots,
     user: state.user.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchProducts: () => dispatch(fetchProducts()),
-    removeFromCart: (userId, productId) =>
-      dispatch(removeProductFromCart(userId, productId)),
-    updateCart: (userId, productId, quantityUpdate) =>
-      dispatch(updateCartList(userId, productId, quantityUpdate))
+    fetchRobots: () => dispatch(fetchRobots()),
+    removeFromCart: (userId, robotId) =>
+      dispatch(removeRobotFromCart(userId, robotId)),
+    updateCart: (userId, robotId, quantityUpdate) =>
+      dispatch(updateCartList(userId, robotId, quantityUpdate))
   }
 }
 
-class CartProductList extends Component {
+class CartRobotList extends Component {
   componentDidMount() {
-    this.props.fetchProducts()
+    this.props.fetchRobots()
   }
 
   render() {
-    const {products, user, updateCart, removeFromCart} = this.props
+    const {robots, user, updateCart, removeFromCart} = this.props
 
     return (
       <div>
         <h1>Your Cart:</h1>
         <ListComponent
-          {...products}
+          {...robots}
           {...user}
           removeFromCart={removeFromCart}
           updateCart={updateCart}
@@ -46,8 +42,8 @@ class CartProductList extends Component {
   }
 }
 
-const ConnectedCartProductList = connect(mapStateToProps, mapDispatchToProps)(
-  CartProductList
+const ConnectedCartRobotList = connect(mapStateToProps, mapDispatchToProps)(
+  CartRobotList
 )
 
-export default ConnectedCartProductList
+export default ConnectedCartRobotList

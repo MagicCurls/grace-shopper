@@ -21,7 +21,7 @@ class UpdateRemove extends Component {
     event.preventDefault()
     this.props.updateCart(
       this.props.userId,
-      this.props.productId,
+      this.props.robotId,
       this.state.quantity
     )
 
@@ -39,7 +39,7 @@ class UpdateRemove extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           removeFromCart={this.props.removeFromCart}
-          productId={this.props.productId}
+          robotId={this.props.robotId}
           userId={this.props.userId}
         />
       </div>
