@@ -11,8 +11,9 @@ router.get('/:userId', async (req, res, next) => {
     const robots = await Robot.findAll({
       where: { id: {[Op.in]: robotIds} }
     })
-    const data = entries.map((entry, idx) => {
-      entry.dataValues.robotInfo = robots[idx].dataValues;
+    const data = entries.map(entry => {
+      const robotIdx = entry.dataValues.robotId-1;
+      entry.dataValues.robotInfo = robots[robotIdx].dataValues;
       return entry;
     })
     res.json(data);
