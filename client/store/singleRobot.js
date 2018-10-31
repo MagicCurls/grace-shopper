@@ -17,12 +17,12 @@ export const getRobot = robot => (
 )
 
 //Thunk creator
-export const fetchProduct = (robotId) => {
+export const fetchRobot = (robotId) => {
   return async (dispatch) => {
       try {
           const response = await axios.get('/api/robots/' + robotId)
           const robot = response.data
-          dispatch(getproduct(robot))
+          dispatch(getRobot(robot))
       }
       catch (err) { console.log(err) }
   }
