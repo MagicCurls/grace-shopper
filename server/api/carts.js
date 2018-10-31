@@ -42,3 +42,13 @@ router.put('/', async (req, res, next) => {
     next(err);
   }
 })
+
+router.delete('/', async (req, res, next) => {
+  try {
+    const {userId, robotId} = req.body;
+    CartEntry.findAll({where: {userId, robotId}}).then(entry => entry[0].destroy()).then(res.sendStatus(200));
+  }
+  catch (err) {
+    next(err);
+  }
+})
