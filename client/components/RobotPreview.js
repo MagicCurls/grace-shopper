@@ -1,29 +1,29 @@
 import React from 'react'
 // import { Link } from 'react-router-dom';
 
-const ProductPreview = props => {
-  const {product} = props
+const RobotPreview = props => {
+  const {robot} = props
 
   return (
     <div>
       <div>
-        <img src={product.imageUrl} />
+        <img src={robot.imageUrl} />
       </div>
       <div>
         <div>
           <div>
-            {/* <Link to={`/robots/${robot.id}`}>{product.name}</Link> */}
-            <h1>{product.name}</h1>
-            {/* <Link to={`/robots/${brand.id}`}>{product.brand}</Link> */}
-            <h3>{product.brand}</h3>
+            {/* <Link to={`/robots/${robot.id}`}>{robot.name}</Link> */}
+            <h1>{robot.name}</h1>
+            {/* <Link to={`/robots/${brand.id}`}>{robot.brand}</Link> */}
+            <h3>{robot.brand}</h3>
           </div>
           <div>
-            <h2>{product.price}</h2>
-            <p>{product.customerReviews}</p>
+            <h2>{robot.price}</h2>
+            <p>{robot.customerReviews}</p>
           </div>
         </div>
         <div>
-          <p>{product.description}</p>
+          <p>{robot.description}</p>
         </div>
         <div>
           {/* <Link to={`/robots/${robot.id}`}>See More</Link> */}
@@ -34,4 +34,4 @@ const ProductPreview = props => {
   )
 }
 
-export default ProductPreview
+export default RobotPreview

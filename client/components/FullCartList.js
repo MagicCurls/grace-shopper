@@ -26,6 +26,7 @@ class FullCartList extends Component {
   componentDidMount() {
     this.props.getUser()
     this.props.getRobots(this.props.user.id)
+    console.log('hit!')
   }
 
   render() {
@@ -35,8 +36,8 @@ class FullCartList extends Component {
       <div>
         <h1>Your Cart:</h1>
         <ListComponent
-          {...robots}
-          {...user}
+          robots={robots}
+          user={user}
           removeFromCart={removeFromCart}
           updateCart={updateCart}
         />
