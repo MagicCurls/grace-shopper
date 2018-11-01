@@ -31,7 +31,6 @@ class UpdateRemove extends Component {
   }
 
   render() {
-    // console.log(this.props)
     return (
       <div className="section">
         <h3>Add To Cart:</h3>

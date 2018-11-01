@@ -37,7 +37,6 @@ class FullCartList extends Component {
     return (
       <div>
         <h1>Your Cart:</h1>
-        {console.log('hit')}
         <ListComponent
           robots={robots}
           user={user}

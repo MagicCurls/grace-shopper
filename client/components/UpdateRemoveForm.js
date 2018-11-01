@@ -10,8 +10,6 @@ const UpdateRemoveForm = props => {
     removeFromCart
   } = props
 
-  console.log(robotId)
-
   return (
     <div>
       <form id="student-form" onSubmit={handleSubmit}>

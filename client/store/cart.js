@@ -77,7 +77,7 @@ export const addEntryThunk = (userId, robotId, quantity) => {
 export const removeEntryThunk = (userId, robotId) => {
   return async dispatch => {
     try {
-      await axios.delete('/api/carts', {userId, robotId})
+      await axios.delete('/api/carts', {data: {userId, robotId}})
       dispatch(removeRobot(robotId))
     } catch (err) {
       console.log(err)

@@ -33,7 +33,6 @@ class FullRobotList extends Component {
     return (
       <div>
         <h1>Robots:</h1>
-        {/* {console.log('hit!!!')} */}
         <ListComponent robots={robots} user={user} addToCart={addToCart} />
       </div>
     )
