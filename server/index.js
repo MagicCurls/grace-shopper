@@ -9,6 +9,8 @@ const db = require('./db')
 const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
+//The following initializes the Stripe client library and passes in the secret key for charges
+const stripe = require("stripe")("sk_test_xTLROk1QTkNgLFHyB0aI5bS9");
 const socketio = require('socket.io')
 module.exports = app
 
@@ -69,6 +71,25 @@ const createApp = () => {
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
+
+  //retrieves payload from POST request body for charges
+  app.use(require("body-parser").text());
+
+  //express route for handling credit card charges
+  app.post("/charge", async (req, res) => {
+    try {
+      let {status} = await stripe.charges.create({
+        amount: 2000,
+        currency: "usd",
+        description: "An example charge",
+        source: req.body
+      });
+  
+      res.json({status});
+    } catch (err) {
+      res.status(500).end();
+    }
+  });
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
