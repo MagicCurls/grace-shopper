@@ -2,7 +2,12 @@ import React from 'react'
 // import { Link } from 'react-router-dom';
 
 const RobotPreview = props => {
-  const {robot} = props
+  let robot
+  if (props.robot.robotInfo) {
+    robot = props.robot.robotInfo
+  } else {
+    robot = props.robot
+  }
 
   return (
     <div>
