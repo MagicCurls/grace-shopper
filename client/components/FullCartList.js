@@ -7,6 +7,8 @@ import {
 } from '../store/cart'
 import ListComponent from './ListComponent'
 import {me} from '../store/user'
+import {Elements, StripeProvider} from 'react-stripe-elements'
+import CheckoutForm from './CheckoutForm'
 
 const mapStateToProps = state => {
   return {
@@ -43,6 +45,16 @@ class FullCartList extends Component {
           removeFromCart={removeFromCart}
           updateCart={updateCart}
         />
+        <div id="StripeProvider">
+          <StripeProvider apiKey="pk_test_gJYHhJq3o2kBKuBUPQM0SheY">
+            <div className="test">
+              <h1>React Stripe Elements Test</h1>
+              <Elements>
+                <CheckoutForm />
+              </Elements>
+            </div>
+          </StripeProvider>
+        </div>
       </div>
     )
   }
