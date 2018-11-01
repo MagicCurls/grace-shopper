@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchRobots} from '../store/robotList'
+import {fetchRobots} from '../store/robots'
 import {addCartThunk} from '../store/cart'
 import ListComponent from './ListComponent'
 import {me} from '../store/user'
@@ -33,7 +33,8 @@ class FullRobotList extends Component {
     return (
       <div>
         <h1>Robots:</h1>
-        <ListComponent {...robots} {...user} addToCart={addToCart} />
+        {/* {console.log('hit!!!')} */}
+        <ListComponent robots={robots} user={user} addToCart={addToCart} />
       </div>
     )
   }
