@@ -1,12 +1,16 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchCartEntries, removeEntryFunc, updateCartList} from '../store/cart'
+import {
+  fetchCartEntries,
+  removeEntryThunk,
+  updateEntryThunk
+} from '../store/cart'
 import ListComponent from './ListComponent'
 import {me} from '../store/user'
 
 const mapStateToProps = state => {
   return {
-    robots: state.cart.robots,
+    robots: state.cart.cartList,
     user: state.user
   }
 }
@@ -15,26 +19,25 @@ const mapDispatchToProps = dispatch => {
   return {
     getRobots: userId => dispatch(fetchCartEntries(userId)),
     removeFromCart: (userId, robotId) =>
-      dispatch(removeEntryFunc(userId, robotId)),
+      dispatch(removeEntryThunk(userId, robotId)),
     updateCart: (userId, robotId, quantityUpdate) =>
-      dispatch(updateCartList(userId, robotId, quantityUpdate)),
+      dispatch(updateEntryThunk(userId, robotId, quantityUpdate)),
     getUser: () => dispatch(me())
   }
 }
 
 class FullCartList extends Component {
-  componentDidMount() {
-    this.props.getUser()
-    this.props.getRobots(this.props.user.id)
-    console.log('hit!')
+  async componentDidMount() {
+    await this.props.getUser()
+    await this.props.getRobots(this.props.user.id)
   }
 
   render() {
     const {robots, user, updateCart, removeFromCart} = this.props
-
     return (
       <div>
         <h1>Your Cart:</h1>
+        {console.log('hit')}
         <ListComponent
           robots={robots}
           user={user}
