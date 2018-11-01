@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import store from './index'
 
 // Actions
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -41,14 +42,24 @@ export const getCartEntries = entries => (
   entries
   }
 )
-
 //Thunk creator
-export const addEntryThunk = ( userId, robotId, quantity ) => {
+export const updateEntryThunk = (userId, robotId, quantity) => {
   return async (dispatch) => {
       try {
-        const entryMatch = state.cartList.filter(entry => {
+          const response = await axios.put('/api/carts', { userId, robotId, quantity })
+          const entryData = response.data
+          dispatch(updateCart(entryData))
+      }
+      catch (err) { console.log(err) }
+  }
+}
+const state = store.getState()
+export const addEntryThunk = ( userId, robotId, quantity) => {
+  return async (dispatch) => {
+      try {
+        const entryMatch = state.cartList.filter(entry => (
           entry.robotId === robotId && entry.userId === userId
-        })
+        ))
         if(!!entryMatch){
           const newQuantity = entryMatch[0].quantity + quantity
           updateEntryThunk(userId, robotId, newQuantity)
@@ -63,22 +74,12 @@ export const addEntryThunk = ( userId, robotId, quantity ) => {
   }
 }
 
-export const updateEntryThunk = (userId, robotId, quantity) => {
-  return async (dispatch) => {
-      try {
-          const response = await axios.put('/api/carts/'+ robotId, { userId, robotId, quantity })
-          const entryData = response.data
-          dispatch(updateCart(entryData))
-      }
-      catch (err) { console.log(err) }
-  }
-}
 
-export const removeEntryThunk = (robotId) => {
+export const removeEntryThunk = (userId, robotId) => {
   return async (dispatch) => {
       try {
-          await axios.delete('/api/carts/' + robotId)
-          dispatch(removerobot(robotId))
+          await axios.delete('/api/carts', {userId, robotId} )
+          dispatch(removeRobot(robotId))
       }
       catch (err) { console.log(err) }
   }
@@ -89,7 +90,7 @@ export const fetchCartEntries = (userId) => {
       try {
           const response = await axios.get('/api/carts/' + userId)
           const entries = response.data
-          dispatch(getRobots(entries))
+          dispatch(getCartEntries(entries))
       }
       catch (err) { console.log(err) }
   }
@@ -102,13 +103,14 @@ export const fetchCartEntries = (userId) => {
       case ADD_TO_CART:
         return { ...state, cartList: [...state.cartList, action.entry] }
       case UPDATE_CART:
-          const newCartList = [...state.cartList].map( entry => {
+          let newCartList = [...state.cartList].map( entry => {
             if(entry.robotId === action.entry.robotId) {
-              return action.entry
+                return action.entry
             }
-          return entry
-        })
+            return entry
+          })
         return { ...state, cartList: newCartList }
+
       case REMOVE_FROM_CART:
         return { ...state, cartList: [...state.cartList].filter(entry => entry.robotId !== action.entry.robotId) }
       case GET_CART_ENTRIES:
