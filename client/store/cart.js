@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import store from './index'
+
 
 // Actions
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -53,11 +53,11 @@ export const updateEntryThunk = (userId, robotId, quantity) => {
       catch (err) { console.log(err) }
   }
 }
-const state = store.getState()
+
 export const addEntryThunk = ( userId, robotId, quantity) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
       try {
-        const entryMatch = state.cartList.filter(entry => (
+        const entryMatch = getState().cartList.filter(entry => (
           entry.robotId === robotId && entry.userId === userId
         ))
         if(!!entryMatch){
