@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {Elements, StripeProvider} from 'react-stripe-elements'
-import CheckoutForm from '../StripePaymentComponents/CheckoutForm'
+import CheckoutForm from './components/StripePaymentComponents/CheckoutForm'
 
 import {Navbar} from './components'
 import Routes from './routes'
