@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchRobots} from '../store/robots'
-import {addCartThunk} from '../store/cart'
+import {addEntryThunk} from '../store/cart'
 import ListComponent from './ListComponent'
 import {me} from '../store/user'
 
@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchRobots: () => dispatch(fetchRobots()),
     addToCart: (userId, robotId, quantity) =>
-      dispatch(addCartThunk(userId, robotId, quantity)),
+      dispatch(addEntryThunk(userId, robotId, quantity)),
     getUser: () => dispatch(me())
   }
 }
