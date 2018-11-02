@@ -34,6 +34,7 @@ export const getCartEntries = entries => ({
   entries
 })
 //Thunk creator
+
 export const updateEntryThunk = (userId, robotId, quantity) => {
   return async dispatch => {
     try {
@@ -53,12 +54,12 @@ export const updateEntryThunk = (userId, robotId, quantity) => {
 export const addEntryThunk = (userId, robotId, quantity) => {
   return async (dispatch, getState) => {
     try {
-      const entryMatch = getState().cart.cartList.filter(
-        entry => entry.robotId === robotId && entry.userId === userId
-      )
+      const entryMatch = getState().cart.cartList.filter(entry => {
+        return entry.robotId === robotId && entry.userId === userId
+      })
       if (!!entryMatch[0]) {
         const newQuantity = entryMatch[0].quantity + quantity
-        updateEntryThunk(userId, robotId, newQuantity)
+        dispatch(updateEntryThunk(userId, robotId, newQuantity))
       } else {
         const response = await axios.post('/api/carts', {
           userId,
