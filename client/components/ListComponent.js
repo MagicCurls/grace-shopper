@@ -15,7 +15,6 @@ const ListComponent = props => {
                 robotId={robot.id}
                 addToCart={props.addToCart}
                 userId={props.user.id}
-                key={robot.id}
               />
             ) : (
               <UpdateRemove
@@ -23,7 +22,6 @@ const ListComponent = props => {
                 userId={props.user.id}
                 removeFromCart={props.removeFromCart}
                 updateCart={props.updateCart}
-                key={robot.id}
               />
             )}
           </div>

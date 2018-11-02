@@ -12,14 +12,14 @@ import CheckoutForm from './CheckoutForm'
 
 const mapStateToProps = state => {
   return {
-    robots: state.cart.cartList,
+    robotsInCart: state.cart.cartList,
     user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getRobots: userId => dispatch(fetchCartEntries(userId)),
+    getCart: userId => dispatch(fetchCartEntries(userId)),
     removeFromCart: (userId, robotId) =>
       dispatch(removeEntryThunk(userId, robotId)),
     updateCart: (userId, robotId, quantityUpdate) =>
@@ -31,16 +31,17 @@ const mapDispatchToProps = dispatch => {
 class FullCartList extends Component {
   async componentDidMount() {
     await this.props.getUser()
-    await this.props.getRobots(this.props.user.id)
+    await this.props.getCart(this.props.user.id)
   }
 
   render() {
-    const {robots, user, updateCart, removeFromCart} = this.props
+    const {robotsInCart, user, updateCart, removeFromCart} = this.props
+
     return (
       <div>
         <h1>Your Cart:</h1>
         <ListComponent
-          robots={robots}
+          robots={robotsInCart}
           user={user}
           removeFromCart={removeFromCart}
           updateCart={updateCart}
