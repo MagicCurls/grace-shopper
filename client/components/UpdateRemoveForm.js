@@ -20,7 +20,7 @@ const UpdateRemoveForm = props => {
           <input
             type="text"
             name="quantity"
-            value={quantity}
+            value={0}
             onChange={handleChange}
             placeholder="0"
           />
