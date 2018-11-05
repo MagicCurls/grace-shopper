@@ -31,16 +31,18 @@ class UpdateRemove extends Component {
   }
 
   render() {
+    const {entry, userId, removeFromCart} = this.props
+    console.log(entry)
+
     return (
       <div className="section">
-        <h3>Add To Cart:</h3>
         <UpdateRemoveForm
-          quantity={this.state.quantity}
+          quantity={entry.quantity}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
-          removeFromCart={this.props.removeFromCart}
-          robotId={this.props.entry.robotInfo.id}
-          userId={this.props.userId}
+          removeFromCart={removeFromCart}
+          robotId={entry.robotId}
+          userId={userId}
         />
       </div>
     )
