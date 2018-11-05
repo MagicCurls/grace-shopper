@@ -17,30 +17,34 @@ class UpdateRemove extends Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
-    this.props.updateCart(
+    await this.props.updateCart(
       this.props.userId,
-      this.props.entry.robotInfo.id,
+      this.props.entry.robotId,
       this.state.quantity
     )
 
     this.setState({
       quantity: 0
     })
+
+    await this.props.getCart(this.props.userId)
   }
 
   render() {
+    const {entry, userId, removeFromCart} = this.props
+
     return (
       <div className="section">
-        <h3>Add To Cart:</h3>
         <UpdateRemoveForm
-          quantity={this.state.quantity}
+          stateQuantity={this.state.quantity}
+          cartQuantity={entry.quantity}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
-          removeFromCart={this.props.removeFromCart}
-          robotId={this.props.entry.robotInfo.id}
-          userId={this.props.userId}
+          removeFromCart={removeFromCart}
+          robotId={entry.robotId}
+          userId={userId}
         />
       </div>
     )
