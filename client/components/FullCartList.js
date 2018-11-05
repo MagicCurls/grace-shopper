@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 import {
   fetchCartEntries,
   removeEntryThunk,
-  updateEntryThunk
-} from '../store/cart'
+  updateEntryThunk,
+} from '../store/cart' //import in the ordered thunks from the store
+import { addOrderThunk } from '../store/completedOrders'
 import ListComponent from './ListComponent'
 import {me} from '../store/user'
 import {Elements, StripeProvider} from 'react-stripe-elements'
@@ -24,9 +25,12 @@ const mapDispatchToProps = dispatch => {
       dispatch(removeEntryThunk(userId, robotId)),
     updateCart: (userId, robotId, quantityUpdate) =>
       dispatch(updateEntryThunk(userId, robotId, quantityUpdate)),
-    getUser: () => dispatch(me())
+    getUser: () => dispatch(me()),
+    addToCompletedOrders: (userId, robotId, quantity) =>
+      dispatch(addOrderThunk(userId, robotId, quantity))
   }
 }
+//create a new reducer and action creators associated with these thunks
 
 class FullCartList extends Component {
   async componentDidMount() {
@@ -35,7 +39,7 @@ class FullCartList extends Component {
   }
 
   render() {
-    const {robotsInCart, user, updateCart, removeFromCart, getCart} = this.props
+    const {robotsInCart, user, updateCart, removeFromCart, getCart, addToCompletedOrders} = this.props
 
     return (
       <div>
@@ -52,7 +56,11 @@ class FullCartList extends Component {
             <div className="test">
               <h1>React Stripe Elements Test</h1>
               <Elements>
-                <CheckoutForm />
+                <CheckoutForm 
+                addToCompletedOrders={addToCompletedOrders}
+                removeFromCart={removeFromCart}
+                robots={robotsInCart}
+                />
               </Elements>
             </div>
           </StripeProvider>

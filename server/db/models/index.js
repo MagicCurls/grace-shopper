@@ -1,6 +1,7 @@
 const User = require('./user')
 const Robot = require('./robot')
 const CartEntry = require('./cartEntry')
+const CompletedOrder = require('./completedOrder')
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -21,5 +22,6 @@ Robot.belongsToMany(User, { through: 'cartEntry' });
 module.exports = {
   User,
   Robot,
-  CartEntry
+  CartEntry,
+  CompletedOrder
 }
