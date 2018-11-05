@@ -6,12 +6,10 @@ import UpdateRemove from './UpdateRemove'
 const ListComponent = props => {
   return (
     <div>
-      {console.log(props.robots)}
-
       {!!props.robots ? (
         props.robots.map(robot => (
           <div key={robot.id}>
-            <RobotPreview robot={robot} />
+            <RobotPreview robot={robot} key={robot.id} />
             {!!props.addToCart ? (
               <AddToCart
                 robotId={robot.id}
@@ -20,7 +18,7 @@ const ListComponent = props => {
               />
             ) : (
               <UpdateRemove
-                robotId={robot.id}
+                entry={robot}
                 userId={props.user.id}
                 removeFromCart={props.removeFromCart}
                 updateCart={props.updateCart}

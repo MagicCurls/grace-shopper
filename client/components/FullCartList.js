@@ -1,46 +1,61 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchCartEntries, removeEntryFunc, updateCartList} from '../store/cart'
+import {
+  fetchCartEntries,
+  removeEntryThunk,
+  updateEntryThunk
+} from '../store/cart'
 import ListComponent from './ListComponent'
 import {me} from '../store/user'
+import {Elements, StripeProvider} from 'react-stripe-elements'
+import CheckoutForm from './CheckoutForm'
 
 const mapStateToProps = state => {
   return {
-    robots: state.cart.robots,
+    robotsInCart: state.cart.cartList,
     user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getRobots: userId => dispatch(fetchCartEntries(userId)),
+    getCart: userId => dispatch(fetchCartEntries(userId)),
     removeFromCart: (userId, robotId) =>
-      dispatch(removeEntryFunc(userId, robotId)),
+      dispatch(removeEntryThunk(userId, robotId)),
     updateCart: (userId, robotId, quantityUpdate) =>
-      dispatch(updateCartList(userId, robotId, quantityUpdate)),
+      dispatch(updateEntryThunk(userId, robotId, quantityUpdate)),
     getUser: () => dispatch(me())
   }
 }
 
 class FullCartList extends Component {
-  componentDidMount() {
-    this.props.getUser()
-    this.props.getRobots(this.props.user.id)
-    console.log('hit!')
+  async componentDidMount() {
+    await this.props.getUser()
+    await this.props.getCart(this.props.user.id)
   }
 
   render() {
-    const {robots, user, updateCart, removeFromCart} = this.props
+    const {robotsInCart, user, updateCart, removeFromCart} = this.props
 
     return (
       <div>
         <h1>Your Cart:</h1>
         <ListComponent
-          robots={robots}
+          robots={robotsInCart}
           user={user}
           removeFromCart={removeFromCart}
           updateCart={updateCart}
         />
+        <div id="StripeProvider">
+          <StripeProvider apiKey="pk_test_gJYHhJq3o2kBKuBUPQM0SheY">
+            <div className="test">
+              <h1>React Stripe Elements Test</h1>
+              <Elements>
+                <CheckoutForm />
+              </Elements>
+            </div>
+          </StripeProvider>
+        </div>
       </div>
     )
   }
