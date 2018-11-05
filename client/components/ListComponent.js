@@ -13,20 +13,36 @@ const ListComponent = props => {
             <Card>
               <RobotPreview robot={robot} />
               <Divider />
-              {!!props.addToCart ? (
-                <AddToCart
-                  robotId={robot.id}
-                  addToCart={props.addToCart}
-                  userId={props.user.id}
-                />
+              {!!props.user.id ? (
+                !!props.addToCart ? (
+                  <AddToCart
+                    robotId={robot.id}
+                    addToCart={props.addToCart}
+                    userId={props.user.id}
+                  />
+                ) : (
+                  <UpdateRemove
+                    entry={robot}
+                    userId={props.user.id}
+                    removeFromCart={props.removeFromCart}
+                    updateCart={props.updateCart}
+                    getCart={props.getCart}
+                  />
+                )
               ) : (
-                <UpdateRemove
-                  entry={robot}
-                  userId={props.user.id}
-                  removeFromCart={props.removeFromCart}
-                  updateCart={props.updateCart}
-                  getCart={props.getCart}
-                />
+                !!props.addToCartGuest ? (
+                  <AddToCart
+                    robotId={robot.id}
+                    addToCartGuest={props.addToCartGuest}
+                  />
+                ) : (
+                  <UpdateRemove
+                    entry={robot}
+                    removeFromCartGuest={props.removeFromCartGuest}
+                    updateCartGuest={props.updateCartGuest}
+                    getCartGuest={props.getCartGuest}
+                  />
+                )
               )}
             </Card>
           </Grid>
