@@ -15,7 +15,7 @@ const RobotPreview = props => {
   }
 
   return (
-    <div>
+    <Typography component="div">
       <CardMedia
         style={{height: 0, paddingTop: '56.25%'}}
         image={robot.imageUrl}
@@ -25,11 +25,11 @@ const RobotPreview = props => {
           <Typography gutterBottom variant="headline" component="h1">
             {robot.name}
           </Typography>
-          <Typography component="h3">{robot.brand}</Typography>
+          <h3>{robot.brand}</h3>
         </div>
         <div>
-          <Typography component="p">Price: {robot.price}</Typography>
-          <Typography component="p">Rating: {robot.customerReviews}</Typography>
+          <p>Price: ${robot.price}</p>
+          <p>Rating: {robot.customerReviews}</p>
         </div>
       </CardContent>
       <CardActions>
@@ -37,7 +37,7 @@ const RobotPreview = props => {
           See More
         </Button>
       </CardActions>
-    </div>
+    </Typography>
   )
 }
 

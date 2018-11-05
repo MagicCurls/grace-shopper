@@ -18,7 +18,6 @@ class Navbar extends Component {
   }
 
   handleMenuClick = event => {
-    console.log(event)
     this.setState({anchorEl: event.currentTarget})
   }
 
@@ -33,7 +32,7 @@ class Navbar extends Component {
     return (
       <div>
         <AppBar position="static">
-          <Typography variant="title" color="inherit">
+          <Typography variant="title" color="inherit" component="div">
             <h2>Grace Shopper</h2>
             <Toolbar>
               <IconButton

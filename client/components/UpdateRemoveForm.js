@@ -1,5 +1,5 @@
 import React from 'react'
-import {CardContent} from '@material-ui/core/'
+import {CardContent, Typography} from '@material-ui/core/'
 
 const UpdateRemoveForm = props => {
   const {
@@ -12,7 +12,7 @@ const UpdateRemoveForm = props => {
   } = props
 
   return (
-    <div>
+    <Typography component="div">
       <CardContent>
         <h3>Update/Remove from Cart:</h3>
         <form id="student-form" onSubmit={handleSubmit}>
@@ -22,7 +22,7 @@ const UpdateRemoveForm = props => {
             name="quantity"
             value={quantity}
             onChange={handleChange}
-            placeholder={quantity}
+            placeholder="0"
           />
 
           <button type="submit" disabled={!quantity ? true : false}>
@@ -33,7 +33,7 @@ const UpdateRemoveForm = props => {
           Remove From Cart
         </button>
       </CardContent>
-    </div>
+    </Typography>
   )
 }
 

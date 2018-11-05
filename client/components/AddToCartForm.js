@@ -1,11 +1,11 @@
 import React from 'react'
-import {CardContent} from '@material-ui/core/'
+import {CardContent, Typography} from '@material-ui/core/'
 
 const AddToCartForm = props => {
   const {quantity, handleSubmit, handleChange} = props
 
   return (
-    <div>
+    <Typography component="div">
       <CardContent>
         <h3>Add to Cart:</h3>
         <form onSubmit={handleSubmit}>
@@ -22,7 +22,7 @@ const AddToCartForm = props => {
           </button>
         </form>
       </CardContent>
-    </div>
+    </Typography>
   )
 }
 

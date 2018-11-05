@@ -11,7 +11,7 @@ const ListComponent = props => {
         props.robots.map(robot => (
           <Grid item xs={12} sm={6} lg={4} xl={3} key={robot.id}>
             <Card>
-              <RobotPreview robot={robot} key={robot.id} />
+              <RobotPreview robot={robot} />
               <Divider />
               {!!props.addToCart ? (
                 <AddToCart
