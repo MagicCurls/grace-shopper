@@ -25,6 +25,7 @@ const ListComponent = props => {
                   userId={props.user.id}
                   removeFromCart={props.removeFromCart}
                   updateCart={props.updateCart}
+                  getCart={props.getCart}
                 />
               )}
             </Card>
