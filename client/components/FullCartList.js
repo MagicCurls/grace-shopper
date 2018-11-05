@@ -35,7 +35,7 @@ class FullCartList extends Component {
   }
 
   render() {
-    const {robotsInCart, user, updateCart, removeFromCart} = this.props
+    const {robotsInCart, user, updateCart, removeFromCart, getCart} = this.props
 
     return (
       <div>
@@ -45,6 +45,7 @@ class FullCartList extends Component {
           user={user}
           removeFromCart={removeFromCart}
           updateCart={updateCart}
+          getCart={getCart}
         />
         <div id="StripeProvider">
           <StripeProvider apiKey="pk_test_gJYHhJq3o2kBKuBUPQM0SheY">

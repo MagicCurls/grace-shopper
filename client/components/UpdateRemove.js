@@ -17,9 +17,9 @@ class UpdateRemove extends Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
-    this.props.updateCart(
+    await this.props.updateCart(
       this.props.userId,
       this.props.entry.robotId,
       this.state.quantity
@@ -28,6 +28,8 @@ class UpdateRemove extends Component {
     this.setState({
       quantity: 0
     })
+
+    await this.props.getCart(this.props.userId)
   }
 
   render() {
