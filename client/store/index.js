@@ -7,13 +7,15 @@ import robots from './robots'
 import singleRobot from './singleRobot'
 import cart from './cart'
 import completedOrders from './completedOrders'
+import guestCart from './guestCart'
 
 const reducer = combineReducers({
   user,
   robots,
   singleRobot,
   cart,
-  completedOrders
+  completedOrders,
+  guestCart
 })
 // new reducer field needs to be added for orderedEntries (add, remove, etc.)
 
@@ -29,6 +31,7 @@ export * from './robots'
 export * from './singleRobot'
 export * from './cart'
 export * from './completedOrders'
+export * from './guestCart'
 
 
 
