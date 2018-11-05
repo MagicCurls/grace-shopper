@@ -5,7 +5,8 @@ const UpdateRemoveForm = props => {
   const {
     userId,
     robotId,
-    quantity,
+    cartQuantity,
+    stateQuantity,
     handleSubmit,
     handleChange,
     removeFromCart
@@ -16,16 +17,15 @@ const UpdateRemoveForm = props => {
       <CardContent>
         <h3>Update/Remove from Cart:</h3>
         <form id="student-form" onSubmit={handleSubmit}>
-          <label htmlFor="quantity">Quantity: {quantity}</label>
+          <label htmlFor="quantity">Quantity: {cartQuantity}</label>
           <input
             type="text"
             name="quantity"
-            value={0}
+            value={stateQuantity}
             onChange={handleChange}
-            placeholder="0"
           />
 
-          <button type="submit" disabled={!quantity ? true : false}>
+          <button type="submit" disabled={!stateQuantity ? true : false}>
             Update Cart
           </button>
         </form>
