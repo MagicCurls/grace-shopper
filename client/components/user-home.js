@@ -1,6 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography
+} from '@material-ui/core/'
+import {ShoppingCart, Android} from '@material-ui/icons/'
 
 /**
  * COMPONENT
@@ -9,9 +18,23 @@ export const UserHome = props => {
   const {email} = props
 
   return (
-    <div>
+    <Typography>
       <h3>Welcome, {email}</h3>
-    </div>
+      <List>
+        <ListItem button component={Link} to="/robots">
+          <ListItemIcon>
+            <Android />
+          </ListItemIcon>
+          <ListItemText primary="Robots" />
+        </ListItem>
+        <ListItem button component={Link} to="/carts">
+          <ListItemIcon>
+            <ShoppingCart />
+          </ListItemIcon>
+          <ListItemText primary="Shopping Cart" />
+        </ListItem>
+      </List>
+    </Typography>
   )
 }
 

@@ -1,14 +1,16 @@
 import React, {Component, Fragment} from 'react'
 import {Navbar} from './components'
 import Routes from './routes'
+import {CssBaseline} from '@material-ui/core/'
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <Fragment>
+        <CssBaseline />
         <Navbar />
         <Routes />
-      </div>
+      </Fragment>
     )
   }
 }

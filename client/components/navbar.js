@@ -1,32 +1,80 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {AppBar, Toolbar, Typography, Menu, IconButton} from '@material-ui/core/'
+import {Menu as MenuButton} from '@material-ui/icons/'
+// import {withStyles} from '@material-ui/core/styles'
+import {MenuUser} from './MenuUser'
+import {MenuGuest} from './MenuGuest'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>Grace Shopper</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+// const Navbar = ({handleClick, isLoggedIn}) => (
+class Navbar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      anchorEl: null
+    }
+  }
+
+  handleMenuClick = event => {
+    console.log(event)
+    this.setState({anchorEl: event.currentTarget})
+  }
+
+  handleClose = () => {
+    this.setState({anchorEl: null})
+  }
+
+  render() {
+    const {handleClick, isLoggedIn} = this.props
+    const open = Boolean(this.state.anchorEl)
+
+    return (
+      <div>
+        <AppBar position="static">
+          <Typography variant="title" color="inherit">
+            <h2>Grace Shopper</h2>
+            <Toolbar>
+              <IconButton
+                aria-label="More"
+                aria-owns={open ? 'long-menu' : undefined}
+                aria-haspopup="true"
+                onClick={this.handleMenuClick}
+              >
+                <MenuButton />
+              </IconButton>
+              <Menu
+                id="long-menu"
+                anchorEl={this.state.anchorEl}
+                open={open}
+                onClose={this.handleClose}
+                PaperProps={{
+                  style: {
+                    maxHeight: 48 * 4.5,
+                    width: 200
+                  }
+                }}
+              >
+                {isLoggedIn ? (
+                  <MenuUser
+                    handleClick={handleClick}
+                    handleClose={this.handleClose}
+                  />
+                ) : (
+                  <MenuGuest handleClose={this.handleClose} />
+                )}
+              </Menu>
+            </Toolbar>
+          </Typography>
+        </AppBar>
+        <hr />
+      </div>
+    )
+
+    // )
+  }
+}
 
 /**
  * CONTAINER

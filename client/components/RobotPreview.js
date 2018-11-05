@@ -1,5 +1,10 @@
 import React from 'react'
 // import { Link } from 'react-router-dom';
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
 const RobotPreview = props => {
   let robot
@@ -11,30 +16,27 @@ const RobotPreview = props => {
 
   return (
     <div>
-      <div>
-        <img src={robot.imageUrl} />
-      </div>
-      <div>
+      <CardMedia
+        style={{height: 0, paddingTop: '56.25%'}}
+        image={robot.imageUrl}
+      />
+      <CardContent>
         <div>
-          <div>
-            {/* <Link to={`/robots/${robot.id}`}>{robot.name}</Link> */}
-            <h1>{robot.name}</h1>
-            {/* <Link to={`/robots/${brand.id}`}>{robot.brand}</Link> */}
-            <h3>{robot.brand}</h3>
-          </div>
-          <div>
-            <h2>{robot.price}</h2>
-            <p>{robot.customerReviews}</p>
-          </div>
+          <Typography gutterBottom variant="headline" component="h1">
+            {robot.name}
+          </Typography>
+          <Typography component="h3">{robot.brand}</Typography>
         </div>
         <div>
-          <p>{robot.description}</p>
+          <Typography component="p">Price: {robot.price}</Typography>
+          <Typography component="p">Rating: {robot.customerReviews}</Typography>
         </div>
-        <div>
-          {/* <Link to={`/robots/${robot.id}`}>See More</Link> */}
-          <p>See More</p>
-        </div>
-      </div>
+      </CardContent>
+      <CardActions>
+        <Button size="small" color="primary" href={`/robots/${robot.id}`}>
+          See More
+        </Button>
+      </CardActions>
     </div>
   )
 }

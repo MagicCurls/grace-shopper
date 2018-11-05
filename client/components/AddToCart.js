@@ -32,8 +32,7 @@ class AddToCart extends Component {
 
   render() {
     return (
-      <div className="section">
-        <h3>Add To Cart:</h3>
+      <div>
         <AddToCartForm
           quantity={this.state.quantity}
           handleChange={this.handleChange}
