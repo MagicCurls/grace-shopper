@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {CartEntry, Robot, User} = require('../db/models')
+const {CartEntry, Robot} = require('../db/models')
 const Op = require('sequelize').Op
 module.exports = router
 
@@ -30,7 +30,7 @@ router.get('/:userId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {userId, robotId, quantity} = req.body
-    CartEntry.create({userId, robotId, quantity}).then(res.sendStatus(201))
+    await CartEntry.create({userId, robotId, quantity}).then(res.sendStatus(201))
   } catch (err) {
     next(err)
   }
@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   try {
     const {userId, robotId, quantity} = req.body
-    CartEntry.findAll({where: {userId, robotId}})
+    await CartEntry.findAll({where: {userId, robotId}})
       .then(entry => entry[0].update({quantity}))
       .then(res.sendStatus(201))
   } catch (err) {
@@ -51,7 +51,7 @@ router.delete('/', async (req, res, next) => {
   try {
     console.log(req.body)
     const {userId, robotId} = req.body
-    CartEntry.findAll({where: {userId, robotId}})
+    await CartEntry.findAll({where: {userId, robotId}})
       .then(entry => entry[0].destroy())
       .then(res.sendStatus(201))
   } catch (err) {

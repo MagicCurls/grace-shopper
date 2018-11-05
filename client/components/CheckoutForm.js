@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {CardElement, injectStripe} from 'react-stripe-elements';
+import cart from '../store/cart';
+import completedOrders from '../store/completedOrders'
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -9,14 +12,24 @@ class CheckoutForm extends Component {
   }
 
   async submit(event) {
+    console.log("HELLO!!!")
     const {token} = await this.props.stripe.createToken({name: "Name"});
+    console.log('This is token: ', token)
     const response = await fetch("/charge", {
     method: "POST",
     headers: {"Content-Type": "text/plain"},
     body: token.id
     });
 
-    if (response.ok) this.setState({complete: true})
+    if (response.ok) {
+      this.setState({complete: true})
+      this.props.robots.map(async robot => {
+        await this.props.addToCompletedOrders(robot.userId, robot.robotId, robot.quantity)
+        await this.props.removeFromCart(robot.userId, robot.robotId)
+        })
+    }
+    // map through the cart passed down from card element component
+    // map through all the cart entries, adding the entry to OrderedEntry table, and delete from the Cart table (already present in a reducer)
   }
 
   render() {
