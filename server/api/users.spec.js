@@ -7,26 +7,34 @@ const app = require('../index')
 const User = db.model('user')
 
 describe('User routes', () => {
+
   beforeEach(() => {
     return db.sync({force: true})
   })
 
   describe('/api/users/', () => {
-    const codysEmail = 'cody@puppybook.com'
+    const userCredentials = {
+      email: 'sponge@bob.com', 
+      password: 'garyTheSnail',
+      isAdmin: true
+    }
+  
+    var authenticatedUser = request.agent(app);
 
     beforeEach(() => {
-      return User.create({
-        email: codysEmail
-      })
+      return User.create(userCredentials);
     })
 
-    it('GET /api/users', async () => {
-      const res = await request(app)
+    xit('GET /api/users', async () => {
+      await authenticatedUser
+        .post('/login')
+        .send(userCredentials)
+      const res = await authenticatedUser
         .get('/api/users')
         .expect(200)
 
       expect(res.body).to.be.an('array')
-      expect(res.body[0].email).to.be.equal(codysEmail)
+      expect(res.body[0]).to.be.equal(userCredentials)
     })
   }) // end describe('/api/users')
 }) // end describe('User routes')
