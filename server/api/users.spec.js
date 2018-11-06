@@ -16,25 +16,33 @@ describe('User routes', () => {
     const userCredentials = {
       email: 'sponge@bob.com', 
       password: 'garyTheSnail',
-      isAdmin: true
     }
-  
-    var authenticatedUser = request.agent(app);
 
     beforeEach(() => {
       return User.create(userCredentials);
     })
 
-    xit('GET /api/users', async () => {
+    it('Admin GET /api/users', async () => {
+      const authenticatedUser = request.agent(app)
+
       await authenticatedUser
         .post('/login')
         .send(userCredentials)
-      const res = await authenticatedUser
+      await authenticatedUser
         .get('/api/users')
-        .expect(200)
+        .end((err, response) => {
+          if (err) {
+            console.log(err)
+          }
+          else
+            expect(response.body).to.be.an('array')
+        })
+    })
 
-      expect(res.body).to.be.an('array')
-      expect(res.body[0]).to.be.equal(userCredentials)
+    it('Throws a 500 error for an unauthorized user', async () => {
+      await request(app)
+        .get('/api/users')
+        .expect(500)
     })
   }) // end describe('/api/users')
 }) // end describe('User routes')

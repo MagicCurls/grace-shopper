@@ -67,10 +67,12 @@ export const addEntryThunkGuest = (robotId, quantity) => {
           quantity: quantity
         }
       }
-      await localStorage.setItem(
+      await axios.get(`/api/robots/${robotId}`).then(response => {
+        newEntry.robotInfo = response.data;
+      }).then(await localStorage.setItem(
         JSON.stringify(robotId),
         JSON.stringify(newEntry)
-      )
+      ))
       console.log('guestEntry before dispatch addToCart: ', newEntry)
       dispatch(addToCartGuest(newEntry))
     } catch (err) {
@@ -95,10 +97,15 @@ export const fetchCartEntriesGuest = () => {
     try {
       let allRobotsId = Object.keys(localStorage)
       console.log(allRobotsId)
-      let allRobots = allRobotsId.slice(0, allRobotsId.length - 1).map(id => {
-        return JSON.parse(localStorage.getItem(id))
+      let allRobots = allRobotsId.slice(0, allRobotsId.length - 1).map(async id => {
+        let robot = JSON.parse(localStorage.getItem(id));
+        await axios.get(`/api/robots/${id}`).then(response => {
+          console.log(response.data);
+          robot.robotInfo = response.data;
+        })
+        return robot;
       })
-      dispatch(getCartEntriesGuest(allRobots))
+      Promise.all(allRobots).then(values => dispatch(getCartEntriesGuest(values)));
     } catch (err) {
       console.log(err)
     }

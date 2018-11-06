@@ -56,6 +56,7 @@ class FullCartList extends Component {
     const {
       robotsInCart,
       user,
+      robotsInGuestCart,
       updateCart,
       removeFromCart,
       getCart,
@@ -64,12 +65,14 @@ class FullCartList extends Component {
       updateCartGuest,
       getCartGuest
     } = this.props
+    let robots;
+    (!robotsInCart) ? robots = robotsInCart : robots = robotsInGuestCart;
 
     return (
       <div>
         <h1>Your Cart:</h1>
         <ListComponent
-          robots={robotsInCart}
+          robots={robots}
           user={user}
           removeFromCart={removeFromCart}
           updateCart={updateCart}
