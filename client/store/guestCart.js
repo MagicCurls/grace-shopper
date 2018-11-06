@@ -40,43 +40,49 @@ export const updateEntryThunkGuest = (robotId, quantity) => {
     try {
       let entryMatch = await JSON.parse(localStorage.getItem(robotId))
 
-      console.log('robotId update:', robotId)
-      console.log(typeof robotId)
-
       entryMatch.quantity = quantity
 
-      console.log('edit entry: ', entryMatch)
-
-      await localStorage.setItem(JSON.stringify(entryMatch.robotId), JSON.stringify(entryMatch))
+      await localStorage.setItem(
+        JSON.stringify(robotId),
+        JSON.stringify(entryMatch)
+      )
       dispatch(updateCartGuest(entryMatch))
-      }
-    catch (err) { console.log(err) }
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
-export const addEntryThunkGuest = (robotId, quantity ) => {
+export const addEntryThunkGuest = (robotId, quantity) => {
   return async dispatch => {
     try {
-      let entryMatch =  await JSON.parse(localStorage.getItem(robotId))
-      if(entryMatch) {
-        entryMatch.quantity = entryMatch.quantity + quantity
+      let newEntry
+      const entryMatch = await JSON.parse(localStorage.getItem(robotId))
+      if (entryMatch) {
+        newEntry = entryMatch
+        newEntry.quantity = newEntry.quantity + quantity
+      } else {
+        newEntry = {
+          robotId: robotId,
+          quantity: quantity
+        }
       }
-      else {
-        entryMatch.quantity = quantity
-      }
-      await localStorage.setItem(JSON.stringify(entryMatch.robotId), JSON.stringify(entryMatch))
-      console.log('guestEntry before dispatch addToCart: ', entryMatch )
-      dispatch(addToCartGuest(entryMatch))
+      await localStorage.setItem(
+        JSON.stringify(robotId),
+        JSON.stringify(newEntry)
+      )
+      console.log('guestEntry before dispatch addToCart: ', newEntry)
+      dispatch(addToCartGuest(newEntry))
+    } catch (err) {
+      console.log(err)
     }
-    catch (err) { console.log(err) }
   }
 }
 
-export const removeEntryThunkGuest = (robotId) => {
+export const removeEntryThunkGuest = robotId => {
   return async dispatch => {
     try {
       await localStorage.removeItem(JSON.stringify(robotId))
-      console.log('removeLocalS robotId: ', robotId)
       dispatch(removeRobotGuest(robotId))
     } catch (err) {
       console.log(err)
@@ -87,22 +93,17 @@ export const removeEntryThunkGuest = (robotId) => {
 export const fetchCartEntriesGuest = () => {
   return dispatch => {
     try {
-      console.log('fetchAllGuests ')
       let allRobotsId = Object.keys(localStorage)
-
-      console.log('allRobots: ', allRobotsId)
-
-      let allRobots = allRobotsId.map(id => {
+      console.log(allRobotsId)
+      let allRobots = allRobotsId.slice(0, allRobotsId.length - 1).map(id => {
         return JSON.parse(localStorage.getItem(id))
       })
-
       dispatch(getCartEntriesGuest(allRobots))
     } catch (err) {
       console.log(err)
     }
   }
 }
-
 
 // Reducer
 
@@ -135,4 +136,3 @@ const cartReducerGuest = (state = defaultCart, action) => {
 }
 
 export default cartReducerGuest
-

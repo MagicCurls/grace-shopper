@@ -11,31 +11,30 @@ const mapStateToProps = state => {
     robots: state.robots.robots,
     user: state.user,
     robotsInCart: state.cart.cartList,
-    robotsInGuestCart: state.guestCart.cartList,
+    robotsInGuestCart: state.guestCart.cartList
   }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-      fetchRobots: () => dispatch(fetchRobots()),
-      getCart: userId => dispatch(fetchCartEntries(userId)),
-      addToCart: (userId, robotId, quantity) =>
-        dispatch(addEntryThunk(userId, robotId, quantity)),
-      getUser: () => dispatch(me()),
+  return {
+    fetchRobots: () => dispatch(fetchRobots()),
+    getCart: userId => dispatch(fetchCartEntries(userId)),
+    addToCart: (userId, robotId, quantity) =>
+      dispatch(addEntryThunk(userId, robotId, quantity)),
+    getUser: () => dispatch(me()),
 
-      getCartGuest: () => dispatch(fetchCartEntriesGuest()),
-      addToCartGuest: (robotId, quantity) =>
-        dispatch(addEntryThunkGuest(robotId, quantity)),
-    }
+    getCartGuest: () => dispatch(fetchCartEntriesGuest()),
+    addToCartGuest: (robotId, quantity) =>
+      dispatch(addEntryThunkGuest(robotId, quantity))
+  }
 }
 
 class FullRobotList extends Component {
   async componentDidMount() {
     await this.props.getUser()
-    if(this.props.user){
+    if (!!this.props.user.id) {
       await this.props.getCart(this.props.user.id)
-    }
-    else {
+    } else {
       await this.props.getCartGuest()
     }
     await this.props.fetchRobots()
@@ -47,7 +46,12 @@ class FullRobotList extends Component {
     return (
       <div>
         <h1>Robots:</h1>
-        <ListComponent robots={robots} user={user} addToCart={addToCart} addToCartGuest={addToCartGuest}/>
+        <ListComponent
+          robots={robots}
+          user={user}
+          addToCart={addToCart}
+          addToCartGuest={addToCartGuest}
+        />
       </div>
     )
   }

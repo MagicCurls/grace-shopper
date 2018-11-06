@@ -9,7 +9,8 @@ const UpdateRemoveForm = props => {
     stateQuantity,
     handleSubmit,
     handleChange,
-    removeFromCart
+    removeFromCart,
+    removeFromCartGuest
   } = props
 
   return (
@@ -29,7 +30,14 @@ const UpdateRemoveForm = props => {
             Update Cart
           </button>
         </form>
-        <button type="button" onClick={() => removeFromCart(userId, robotId)}>
+        <button
+          type="button"
+          onClick={() => {
+            !!userId
+              ? removeFromCart(userId, robotId)
+              : removeFromCartGuest(robotId)
+          }}
+        >
           Remove From Cart
         </button>
       </CardContent>
