@@ -66,8 +66,8 @@ class FullCartList extends Component {
       getCartGuest
     } = this.props
     let robots;
-    (!robotsInCart) ? robots = robotsInCart : robots = robotsInGuestCart;
-
+    (Boolean(this.props.user.id)) ? (robots = robotsInCart) : (robots = robotsInGuestCart);
+    
     return (
       <div>
         <h1>Your Cart:</h1>
