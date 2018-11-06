@@ -10,7 +10,7 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 //The following initializes the Stripe client library and passes in the secret key for charges
-const stripe = require("stripe")("sk_test_xTLROk1QTkNgLFHyB0aI5bS9");
+const stripe = require("stripe")(process.env.SECRET_KEY);
 const socketio = require('socket.io')
 module.exports = app
 

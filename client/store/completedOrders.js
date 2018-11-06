@@ -35,7 +35,7 @@ const completedOrderReducer = (state = defaultCompletedOrder, action) => {
   switch (action.type) {
     case ADD_TO_COMPLETED_ORDERS:
       return { ...state,
-        completedOrders: [...state.completedOrders, action.entry]
+        completedOrders: [...state.completedOrders, action.orders]
       }
     default:
       return state
