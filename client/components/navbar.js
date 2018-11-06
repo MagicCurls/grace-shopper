@@ -4,11 +4,9 @@ import {connect} from 'react-redux'
 import {logout} from '../store'
 import {AppBar, Toolbar, Typography, Menu, IconButton} from '@material-ui/core/'
 import {Menu as MenuButton} from '@material-ui/icons/'
-// import {withStyles} from '@material-ui/core/styles'
 import {MenuUser} from './MenuUser'
 import {MenuGuest} from './MenuGuest'
 
-// const Navbar = ({handleClick, isLoggedIn}) => (
 class Navbar extends Component {
   constructor(props) {
     super(props)
@@ -70,8 +68,6 @@ class Navbar extends Component {
         <hr />
       </div>
     )
-
-    // )
   }
 }
 

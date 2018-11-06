@@ -26,7 +26,6 @@ class Routes extends Component {
 
     return (
       <Switch>
-        {/* Routes placed here are available to all visitors */}
         <Route exact path="/robots" component={FullRobotList} />
         <Route path="/robots/:robotId" component={SingleRobot} />
         <Route path="/carts" component={FullCartList} />
@@ -35,15 +34,10 @@ class Routes extends Component {
         <Route path="/completedOrders/" component={OrderHistoryComponent} />
         {isLoggedIn && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
           </Switch>
         )}
-        {/* Displays our Login component as a fallback */}
-        {/* <Route component={Login} /> */}
         <Redirect to="/robots" />
-        {/* <Route path="/" component={FullRobotList} /> */}
-        {/* <Route component={FullRobotList} /> */}
       </Switch>
     )
   }
@@ -54,8 +48,6 @@ class Routes extends Component {
  */
 const mapState = state => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id
   }
 }
@@ -68,8 +60,6 @@ const mapDispatch = dispatch => {
   }
 }
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default withRouter(connect(mapState, mapDispatch)(Routes))
 
 /**
