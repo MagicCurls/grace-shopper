@@ -8,7 +8,8 @@ import {
   UserHome,
   FullRobotList,
   FullCartList,
-  SingleRobot
+  SingleRobot,
+  OrderHistoryComponent
 } from './components'
 import {me} from './store'
 
@@ -31,6 +32,7 @@ class Routes extends Component {
         <Route path="/carts" component={FullCartList} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/completedOrders/:userId" component={OrderHistoryComponent} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
