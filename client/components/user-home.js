@@ -18,7 +18,7 @@ export const UserHome = props => {
   const {email} = props
 
   return (
-    <Typography>
+    <Typography component="div">
       <h3>Welcome, {email}</h3>
       <List>
         <ListItem button component={Link} to="/robots">

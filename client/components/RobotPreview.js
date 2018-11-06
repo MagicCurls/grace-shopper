@@ -1,10 +1,11 @@
 import React from 'react'
-// import { Link } from 'react-router-dom';
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
+import {Link} from 'react-router-dom'
+import {
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography
+} from '@material-ui/core/'
 
 const RobotPreview = props => {
   let robot
@@ -33,9 +34,7 @@ const RobotPreview = props => {
         </div>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" href={`/robots/${robot.id}`}>
-          See More
-        </Button>
+        <Link to={`robots/${robot.id}`}>See More</Link>
       </CardActions>
     </Typography>
   )
