@@ -31,6 +31,12 @@ export const MenuUser = props => (
       </ListItemIcon>
       <ListItemText primary="Shopping Cart" />
     </MenuItem>
+    <MenuItem button component={Link} to="/completedOrders">
+      <ListItemIcon>
+        <ShoppingCart />
+      </ListItemIcon>
+      <ListItemText primary="Order History" />
+    </MenuItem>
     <Divider />
     <MenuItem
       button
