@@ -29,20 +29,18 @@ const ListComponent = props => {
                     getCart={props.getCart}
                   />
                 )
+              ) : !!props.addToCartGuest ? (
+                <AddToCart
+                  robotId={robot.id}
+                  addToCartGuest={props.addToCartGuest}
+                />
               ) : (
-                !!props.addToCartGuest ? (
-                  <AddToCart
-                    robotId={robot.id}
-                    addToCartGuest={props.addToCartGuest}
-                  />
-                ) : (
-                  <UpdateRemove
-                    entry={robot}
-                    removeFromCartGuest={props.removeFromCartGuest}
-                    updateCartGuest={props.updateCartGuest}
-                    getCartGuest={props.getCartGuest}
-                  />
-                )
+                <UpdateRemove
+                  entry={robot}
+                  removeFromCartGuest={props.removeFromCartGuest}
+                  updateCartGuest={props.updateCartGuest}
+                  getCartGuest={props.getCartGuest}
+                />
               )}
             </Card>
           </Grid>
