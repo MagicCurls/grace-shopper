@@ -7,7 +7,8 @@ import {
   Signup,
   UserHome,
   FullRobotList,
-  FullCartList
+  FullCartList,
+  SingleRobot
 } from './components'
 import {me} from './store'
 
@@ -26,6 +27,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/robots" component={FullRobotList} />
+        <Route path="/robots/:robotId" component={SingleRobot} />
         <Route path="/carts" component={FullCartList} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
