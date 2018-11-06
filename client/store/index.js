@@ -33,16 +33,3 @@ export * from './cart'
 export * from './completedOrders'
 export * from './guestCart'
 
-
-
-// import userReducer from './user'
-// import robotListReducer from './robotList'
-// import singleRobotReducer from './singleRobot'
-// import cartReducer from './cart'
-
-// const reducer = combineReducers({
-//   user: userReducer,
-//   robot: robotListReducer,
-//   singleRobot: singleRobotReducer,
-//   cart : cartReducer
-// })
