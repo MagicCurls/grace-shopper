@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// Actions
 const ADD_TO_COMPLETED_ORDERS = 'ADD_TO_COMPLETED_ORDERS'
 
 //Completed Orders
@@ -15,7 +16,7 @@ const defaultCompletedOrder = {
 
 export const addOrderThunk = (userId, robotId, quantity) => {
   console.log('this is quantity', quantity
-  )  
+  )
   return async (dispatch) => {
       try {
           const response = await axios.post('/api/completedOrders', {
@@ -35,7 +36,7 @@ const completedOrderReducer = (state = defaultCompletedOrder, action) => {
   switch (action.type) {
     case ADD_TO_COMPLETED_ORDERS:
       return { ...state,
-        completedOrders: [...state.completedOrders, action.entry]
+        completedOrders: [...state.completedOrders, action.orders]
       }
     default:
       return state

@@ -13,12 +13,11 @@ const defaultCart = {
 }
 
 // Action creator
-// userId, RobotId, Quantity
 export const addToCartGuest = entry => ({
   type: ADD_TO_CART_GUEST,
   entry
 })
-// userId, RobotId, Quantity
+
 export const updateCartGuest = entry => ({
   type: UPDATE_CART_GUEST,
   entry
@@ -33,6 +32,7 @@ export const getCartEntriesGuest = entries => ({
   type: GET_CART_ENTRIES_GUEST,
   entries
 })
+
 //Thunk creator
 
 export const updateEntryThunkGuest = (robotId, quantity) => {
