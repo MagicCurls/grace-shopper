@@ -4,7 +4,13 @@ import {
   fetchCartEntries,
   removeEntryThunk,
   updateEntryThunk
-} from '../store/cart'
+} from '../store/cart' //import in the ordered thunks from the store
+import {
+  updateEntryThunkGuest,
+  removeEntryThunkGuest,
+  fetchCartEntriesGuest
+} from '../store/guestCart'
+import {addOrderThunk} from '../store/completedOrders'
 import ListComponent from './ListComponent'
 import {me} from '../store/user'
 import {Elements, StripeProvider} from 'react-stripe-elements'
@@ -13,7 +19,8 @@ import CheckoutForm from './CheckoutForm'
 const mapStateToProps = state => {
   return {
     robotsInCart: state.cart.cartList,
-    user: state.user
+    user: state.user,
+    robotsInGuestCart: state.guestCart.cartList
   }
 }
 
@@ -24,18 +31,39 @@ const mapDispatchToProps = dispatch => {
       dispatch(removeEntryThunk(userId, robotId)),
     updateCart: (userId, robotId, quantityUpdate) =>
       dispatch(updateEntryThunk(userId, robotId, quantityUpdate)),
-    getUser: () => dispatch(me())
+    getUser: () => dispatch(me()),
+    addToCompletedOrders: (userId, robotId, quantity) =>
+      dispatch(addOrderThunk(userId, robotId, quantity)),
+    getCartGuest: () => dispatch(fetchCartEntriesGuest()),
+    removeFromCartGuest: robotId => dispatch(removeEntryThunkGuest(robotId)),
+    updateCartGuest: (robotId, quantityUpdate) =>
+      dispatch(updateEntryThunkGuest(robotId, quantityUpdate))
   }
 }
+//create a new reducer and action creators associated with these thunks
 
 class FullCartList extends Component {
   async componentDidMount() {
     await this.props.getUser()
-    await this.props.getCart(this.props.user.id)
+    if (!!this.props.user.id) {
+      await this.props.getCart(this.props.user.id)
+    } else {
+      await this.props.getCartGuest()
+    }
   }
 
   render() {
-    const {robotsInCart, user, updateCart, removeFromCart, getCart} = this.props
+    const {
+      robotsInCart,
+      user,
+      updateCart,
+      removeFromCart,
+      getCart,
+      addToCompletedOrders,
+      removeFromCartGuest,
+      updateCartGuest,
+      getCartGuest
+    } = this.props
 
     return (
       <div>
@@ -46,13 +74,20 @@ class FullCartList extends Component {
           removeFromCart={removeFromCart}
           updateCart={updateCart}
           getCart={getCart}
+          removeFromCartGuest={removeFromCartGuest}
+          updateCartGuest={updateCartGuest}
+          getCartGuest={getCartGuest}
         />
         <div id="StripeProvider">
           <StripeProvider apiKey="pk_test_gJYHhJq3o2kBKuBUPQM0SheY">
             <div className="test">
               <h1>React Stripe Elements Test</h1>
               <Elements>
-                <CheckoutForm />
+                <CheckoutForm
+                  addToCompletedOrders={addToCompletedOrders}
+                  removeFromCart={removeFromCart}
+                  robots={robotsInCart}
+                />
               </Elements>
             </div>
           </StripeProvider>

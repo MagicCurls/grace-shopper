@@ -19,11 +19,18 @@ class AddToCart extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.addToCart(
-      this.props.userId,
-      this.props.robotId,
-      this.state.quantity
-    )
+    if(this.props.userId){
+      this.props.addToCart(
+        this.props.userId,
+        this.props.robotId,
+        this.state.quantity
+      )
+    } else {
+      this.props.addToCartGuest(
+        this.props.robotId,
+        this.state.quantity
+      )
+    }
 
     this.setState({
       quantity: 0

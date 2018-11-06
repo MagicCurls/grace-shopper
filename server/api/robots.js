@@ -22,11 +22,7 @@ router.get('/:robotId', async (req, res, next) => {
 
 router.get('/byBrand/:brand', async (req, res, next) => {
     try {
-        const robotsByBrand = await Robot.findAll({
-            where: {
-                brand: req.params.brand
-            }
-        })
+        const robotsByBrand = await Robot.findAll({where: {brand: req.params.brand}})
         res.json(robotsByBrand)
     } catch(err) {
         next(err)

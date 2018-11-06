@@ -9,7 +9,7 @@ const GET_CART_ENTRIES = 'GET_CART_ENTRIES'
 
 // Initial State
 const defaultCart = {
-  cartList: []
+  cartList: [],
 }
 
 // Action creator
@@ -33,6 +33,8 @@ export const getCartEntries = entries => ({
   type: GET_CART_ENTRIES,
   entries
 })
+
+
 //Thunk creator
 
 export const updateEntryThunk = (userId, robotId, quantity) => {
@@ -105,7 +107,7 @@ const cartReducer = (state = defaultCart, action) => {
     case ADD_TO_CART:
       return {...state, cartList: [...state.cartList, action.entry]}
     case UPDATE_CART:
-      let newCartList = [...state.cartList].map(entry => {
+      const newCartList = [...state.cartList].map(entry => {
         if (entry.robotId === action.entry.robotId) {
           return action.entry
         }
