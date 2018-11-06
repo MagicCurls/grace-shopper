@@ -11,31 +11,30 @@ export const addOrder = orders => ({
 
 // Initial State
 const defaultCompletedOrder = {
-  completedOrders: [],
+  completedOrders: []
 }
 
 export const addOrderThunk = (userId, robotId, quantity) => {
-  console.log('this is quantity', quantity
-  )
-  return async (dispatch) => {
-      try {
-          const response = await axios.post('/api/completedOrders', {
-            userId,
-            robotId,
-            quantity
-          })
-          const orders = response.data
-          dispatch(addOrder(orders))
-      } catch (err) {
-        console.log(err)
-      }
+  return async dispatch => {
+    try {
+      const response = await axios.post('/api/completedOrders', {
+        userId,
+        robotId,
+        quantity
+      })
+      const orders = response.data
+      dispatch(addOrder(orders))
+    } catch (err) {
+      console.log(err)
     }
   }
+}
 
 const completedOrderReducer = (state = defaultCompletedOrder, action) => {
   switch (action.type) {
     case ADD_TO_COMPLETED_ORDERS:
-      return { ...state,
+      return {
+        ...state,
         completedOrders: [...state.completedOrders, action.orders]
       }
     default:

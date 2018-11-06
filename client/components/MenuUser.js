@@ -7,7 +7,6 @@ import {
   ListItemText,
   Divider
 } from '@material-ui/core/'
-// import {withStyles} from '@material-ui/core/styles'
 import {Android, ShoppingCart} from '@material-ui/icons/'
 
 export const MenuUser = props => (
