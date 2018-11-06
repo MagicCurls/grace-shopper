@@ -10,7 +10,6 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 //The following initializes the Stripe client library and passes in the secret key for charges
-const stripe = require("stripe")(process.env.SECRET_KEY);
 const socketio = require('socket.io')
 module.exports = app
 
@@ -29,6 +28,7 @@ if (process.env.NODE_ENV === 'test') {
  * Node process on process.env
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
+const stripe = require("stripe")(process.env.SECRET_KEY);
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
