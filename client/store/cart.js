@@ -1,8 +1,7 @@
 import axios from 'axios'
-import history from '../history'
 
 // Actions
-const ADD_TO_CART = 'ADD_TO_CART'
+export const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_CART = 'UPDATE_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const GET_CART_ENTRIES = 'GET_CART_ENTRIES'
