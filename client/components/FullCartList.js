@@ -84,7 +84,8 @@ class FullCartList extends Component {
         <Checkout
           addToCompletedOrders={addToCompletedOrders}
           removeFromCart={removeFromCart}
-          robots={robotsInCart}
+          robots={robots}
+          removeFromCartGuest={removeFromCartGuest}
         />
       </div>
     )

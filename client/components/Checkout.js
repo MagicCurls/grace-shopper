@@ -4,7 +4,12 @@ import CheckoutForm from './CheckoutForm'
 import {Card, Typography, Grid, CardContent} from '@material-ui/core/'
 
 const Checkout = props => {
-  const {addToCompletedOrders, removeFromCart, robots} = props
+  const {
+    removeFromCartGuest,
+    addToCompletedOrders,
+    removeFromCart,
+    robots
+  } = props
 
   return (
     <Grid container spacing={24} style={{padding: 24}}>
@@ -21,6 +26,7 @@ const Checkout = props => {
                         addToCompletedOrders={addToCompletedOrders}
                         removeFromCart={removeFromCart}
                         robots={robots}
+                        removeFromCartGuest={removeFromCartGuest}
                       />
                     </Elements>
                   </div>

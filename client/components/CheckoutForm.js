@@ -17,7 +17,6 @@ class CheckoutForm extends Component {
     })
 
     if (response.ok) {
-      this.setState({complete: true})
       this.props.robots.map(async robot => {
         await this.props.addToCompletedOrders(
           robot.userId,
@@ -25,7 +24,9 @@ class CheckoutForm extends Component {
           robot.quantity
         )
         await this.props.removeFromCart(robot.userId, robot.robotId)
+        await this.props.removeFromCartGuest(robot.robotId)
       })
+      this.setState({complete: true})
     }
   }
 
